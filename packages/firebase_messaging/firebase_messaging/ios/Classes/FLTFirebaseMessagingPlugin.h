@@ -42,6 +42,7 @@ API_AVAILABLE(ios(10.0))
                                                            FLTFirebasePlugin,
                                                            FIRMessagingDelegate,
                                                            UNUserNotificationCenterDelegate>
+- (void) sendNotificationWithTitle:(NSString *_Nonnull)title body:(NSString *_Nonnull)body userId:(NSString *_Nonnull)userId channelId:(NSString *_Nonnull)channelId color:(NSString *_Nonnull)color userImage:(NSString *_Nonnull)userImage action:(NSString *_Nonnull)action fromId:(NSString *_Nonnull)fromId codPedido:(NSString *_Nonnull)codPedido description:(NSString *_Nonnull)description estadoPedido:(NSString *_Nonnull)estadoPedido valorPedido:(NSString *_Nonnull)valorPedido dataChat:(NSDictionary *_Nonnull)dataChat completionHandler:(void (^_Nullable)(void))completionHandler;
 #else
 @interface FLTFirebaseMessagingPlugin
     : FLTFirebasePlugin <FlutterPlugin, FLTFirebasePlugin, FIRMessagingDelegate>

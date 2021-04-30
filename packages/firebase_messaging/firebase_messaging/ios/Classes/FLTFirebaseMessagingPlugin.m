@@ -487,18 +487,24 @@ NSString *const COLOR_CONSUMIDOR = @"0x0288D1";
 - (BOOL)application:(UIApplication *)application
     didReceiveRemoteNotification:(NSDictionary *)userInfo
           fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    /*NSLog( @"490 didReceiveRemoteNotification()." );*/
 #if __has_include(<FirebaseAuth/FirebaseAuth.h>)
   if ([[FIRAuth auth] canHandleNotification:userInfo]) {
     completionHandler(UIBackgroundFetchResultNoData);
     return YES;
   }
 #endif
-
+  /*NSLog(@"498 userInfo es: %@", userInfo);*/
+  /*NSLog(@"498 platform ID: %@", userInfo[@"platform"]);*/
+  if([userInfo[@"platform"] isEqualToString:@"android"]) {
+      completionHandler(UIBackgroundFetchResultNoData);
+      return YES;
+  }
   // Only handle notifications from FCM.
   if (userInfo[@"gcm.message_id"]) {
     NSDictionary *notificationDict =
         [FLTFirebaseMessagingPlugin remoteMessageUserInfoToDict:userInfo];
-
+      /*NSLog( @"507 [UIApplication sharedApplication].applicationState() == UIApplicationStateBackground" );*/
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
       __block BOOL completed = NO;
 

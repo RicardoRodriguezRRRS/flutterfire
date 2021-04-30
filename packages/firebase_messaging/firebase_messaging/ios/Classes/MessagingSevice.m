@@ -38,11 +38,40 @@ NSString *const SERVER_KEY = @"AAAAzrch3GY:APA91bHzNu6tfoaqLrVpnIqFyXq0pKdz7QhjZ
 
 - (NSArray *_Nonnull) getBodyParamsWithFcmToken:(NSString *)fcmToken title:(NSString *)title body:(NSString *)body topicId:(NSString *)topicId imageName:(NSString *)imageName tagId:(NSString *)tagId colorIcon:(NSString *)colorIcon action:(NSString *)action fromId:(NSString *)fromId codPedido:(NSString *)codPedido description:(NSString *)description estadoPedido:(NSString *)estadoPedido valorPedido:(NSString *)valorPedido payload:(NSDictionary *)payload {
     
+    NSDictionary * dataBodyAndroid = @{
+        @"to": fcmToken,
+        @"priority": @"high",
+        @"mutable_content": @NO,
+        @"content_available": @YES,
+        @"data": @{
+            @"title": title,
+            @"body": body,
+            @"image": imageName,
+            @"android_channel_id": @"channel_id",
+            @"icon": @"ic_notification",
+            @"sound": @"default",
+            @"tag": tagId,
+            @"color": colorIcon,
+            @"action": action,
+            @"from_id": fromId,
+            @"topic_id": fromId,
+            @"cod_pedido": codPedido,
+            @"description": description,
+            @"estado_pedido": estadoPedido,
+            @"valor_pedido": valorPedido,
+            @"silent": @NO,
+            @"platform": @"android",
+            @"type": @"text",
+            @"data_chat": payload
+        }
+    };
+    
     NSDictionary * bodyFCMPayload = @{
         @"to": fcmToken,
         @"priority": @"high",
         @"mutable_content": @YES,
         @"content_available": @YES,
+        @"restricted_package_name": @"com.example.myandroidapp",
         @"notification": @{
             @"title": title,
             @"body": body,
@@ -72,6 +101,7 @@ NSString *const SERVER_KEY = @"AAAAzrch3GY:APA91bHzNu6tfoaqLrVpnIqFyXq0pKdz7QhjZ
             @"estado_pedido": estadoPedido,
             @"valor_pedido": valorPedido,
             @"silent": @NO,
+            @"platform": @"ios",
             @"type": @"text",
             @"data_chat": payload
         },
@@ -81,7 +111,7 @@ NSString *const SERVER_KEY = @"AAAAzrch3GY:APA91bHzNu6tfoaqLrVpnIqFyXq0pKdz7QhjZ
         }
     };
     
-    NSArray *bodyParams = @[bodyFCMPayload];
+    NSArray *bodyParams = @[dataBodyAndroid, bodyFCMPayload];
     //[bodyParams setValue:dataBodyAndroid forKey:@"android"];
     //[bodyParams setValue:dataBodyIOS forKey:@"iOS"];
     

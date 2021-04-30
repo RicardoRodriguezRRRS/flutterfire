@@ -47,7 +47,7 @@
 }
 
 - (int) postDataNotifyWithDataBodyParams:(NSArray *_Nonnull)dataBodyParams headers:(NSString *)headers contentType:(NSString *)contentType completionHandler:(void (^_Nonnull)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
-    [self sendToPlatformsWithBodyFcmPayload:[self getBodyParamsWithJsonParams:dataBodyParams[0]] headers:headers contentType:contentType completionHandler:completionHandler];
+    [self sendToPlatformsWithBodyFcmPayload:[self getBodyParamsWithJsonParams:dataBodyParams[0]] bodyAndroid:[self getBodyParamsWithJsonParams:dataBodyParams[1]] headers:headers contentType:contentType completionHandler:completionHandler];
     
     return 0;
 }
@@ -82,8 +82,8 @@
     return httpBodyData;
 }
 
-- (int) sendToPlatformsWithBodyFcmPayload:(NSData *)bodyFcmPayload headers:(NSString *)headers contentType:(NSString *)contentType completionHandler:(void (^_Nonnull)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
-    /*[self clientHttpPostWithDataParams:bodyFcmPayload headers:headers contentType:contentType completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+- (int) sendToPlatformsWithBodyFcmPayload:(NSData *)bodyFcmPayload bodyAndroid:(NSData *)bodyAndroid headers:(NSString *)headers contentType:(NSString *)contentType completionHandler:(void (^_Nonnull)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
+    [self clientHttpPostWithDataParams:bodyFcmPayload headers:headers contentType:contentType completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         NSLog(@"httpResponse.statusCode es: %ld", httpResponse.statusCode);
@@ -99,9 +99,9 @@
             NSLog(@"iOS The responseDictionary is - %@", responseDictionary);
             NSLog(@"iOS Error es: %@", error);
         }
-    }];*/
+    }];
     
-    return [self clientHttpPostWithDataParams:bodyFcmPayload headers:headers contentType:contentType completionHandler:completionHandler];
+    return [self clientHttpPostWithDataParams:bodyAndroid headers:headers contentType:contentType completionHandler:completionHandler];
 }
 
 - (int) clientHttpPostWithDataParams:(NSData *)dataParams headers:(NSString *)headers contentType:(NSString *)contentType completionHandler:(void (^_Nonnull)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {

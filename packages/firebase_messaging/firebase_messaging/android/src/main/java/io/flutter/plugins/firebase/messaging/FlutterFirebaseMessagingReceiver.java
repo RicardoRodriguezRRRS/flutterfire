@@ -26,7 +26,7 @@ public class FlutterFirebaseMessagingReceiver extends BroadcastReceiver {
     RemoteMessage remoteMessage = new RemoteMessage(intent.getExtras());
 
     // Store the RemoteMessage if the message contains a notification payload.
-    if (remoteMessage.getNotification() != null) {
+    if (remoteMessage.getNotification() != null || remoteMessage.getData() != null) {
       notifications.put(remoteMessage.getMessageId(), remoteMessage);
       FlutterFirebaseMessagingStore.getInstance().storeFirebaseMessage(remoteMessage);
     }

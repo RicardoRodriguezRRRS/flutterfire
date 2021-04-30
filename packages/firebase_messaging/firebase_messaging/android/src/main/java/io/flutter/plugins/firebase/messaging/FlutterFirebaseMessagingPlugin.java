@@ -7,6 +7,7 @@ package io.flutter.plugins.firebase.messaging;
 import static io.flutter.plugins.firebase.core.FlutterFirebasePluginRegistry.registerPlugin;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -192,6 +193,13 @@ public class FlutterFirebaseMessagingPlugin extends BroadcastReceiver
               FlutterFirebaseMessagingUtils.getFirebaseMessagingForArguments(arguments);
           String topic = (String) Objects.requireNonNull(arguments.get("topic"));
           Tasks.await(firebaseMessaging.unsubscribeFromTopic(topic));
+
+          NotificationManager notificationManager =
+            (NotificationManager) mainActivity.getSystemService(Context.NOTIFICATION_SERVICE);
+
+          notificationManager.cancelAll();
+
+          onDetachedFromActivity(); // this.mainActivity = null;
           return null;
         });
   }

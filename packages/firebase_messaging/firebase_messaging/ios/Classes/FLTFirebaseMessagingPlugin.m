@@ -1237,7 +1237,7 @@ NSString *const COLOR_CONSUMIDOR = @"0x0288D1";
                             NSString *tipoUser = [responseDictionary objectForKey:@"tipoUsuario"];
                             NSString *idUser = [[responseDictionary objectForKey:@"idUser"] stringValue];
                             NSString *fromId = [NSString stringWithFormat:@"%@-%@", tipoUser, idUser];
-                            NSString *userImage = [NSString stringWithFormat:@"https://%@/uploads/logosProveedor/%@", __SERVER_DOMAIN, [responseDictionary objectForKey:@"fotoLogo"]];
+                            NSString *userImage = [responseDictionary objectForKey:@"fotoLogo"];
                             NSInteger messageId = [[responseDictionary objectForKey:@"messageId"] intValue];
 
                             NSString *dataChat = userInfo[@"data_chat"];
@@ -1311,7 +1311,7 @@ NSString *const COLOR_CONSUMIDOR = @"0x0288D1";
             NSString *tipoUser = [responseDictionary objectForKey:@"tipoUsuario"];
             NSString *idUser = [[responseDictionary objectForKey:@"idUser"] stringValue];
             NSString *fromId = [NSString stringWithFormat:@"%@-%@", tipoUser, idUser];
-            NSString *userImage = [NSString stringWithFormat:@"https://%@/uploads/logosProveedor/%@", __SERVER_DOMAIN, [responseDictionary objectForKey:@"fotoLogo"]];
+            NSString *userImage = [responseDictionary objectForKey:@"fotoLogo"];
             NSInteger messageId = [[responseDictionary objectForKey:@"messageId"] intValue];
 
             NSString *dataChat = userInfo[@"data_chat"];

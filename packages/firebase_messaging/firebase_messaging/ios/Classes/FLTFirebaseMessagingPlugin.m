@@ -302,6 +302,7 @@ NSString *const COLOR_CONSUMIDOR = @"0x0288D1";
     // Don't send an event if contentAvailable is true - application:didReceiveRemoteNotification
     // will send the event for us, we don't want to duplicate them.
     if (!notificationDict[@"contentAvailable"]) {
+        NSLog(@"305 [_channel invokeMethod:@\"Messaging#onMessage\"");
       [_channel invokeMethod:@"Messaging#onMessage" arguments:notificationDict];
     }
   }
@@ -364,7 +365,7 @@ NSString *const COLOR_CONSUMIDOR = @"0x0288D1";
          withCompletionHandler:(void (^)(void))completionHandler  API_AVAILABLE(macos(10.14), ios(10.0)) {
     //fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
     
-    NSLog(@"409 - (void)userNotificationCenter:didReceiveNotificationResponsewithCompletionHandler");
+    NSLog(@"367 - (void)userNotificationCenter:didReceiveNotificationResponsewithCompletionHandler");
 
     if ([response.notification.request.content.categoryIdentifier isEqualToString:generalCategory]) {
         // Handle the actions for the expired timer.
@@ -487,15 +488,15 @@ NSString *const COLOR_CONSUMIDOR = @"0x0288D1";
 - (BOOL)application:(UIApplication *)application
     didReceiveRemoteNotification:(NSDictionary *)userInfo
           fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    /*NSLog( @"490 didReceiveRemoteNotification()." );*/
+    NSLog( @"490 didReceiveRemoteNotification()." );
 #if __has_include(<FirebaseAuth/FirebaseAuth.h>)
   if ([[FIRAuth auth] canHandleNotification:userInfo]) {
     completionHandler(UIBackgroundFetchResultNoData);
     return YES;
   }
 #endif
-  /*NSLog(@"498 userInfo es: %@", userInfo);*/
-  /*NSLog(@"498 platform ID: %@", userInfo[@"platform"]);*/
+  NSLog(@"497 userInfo es: %@", userInfo[@"action"]);
+  NSLog(@"498 platform ID: %@", userInfo[@"platform"]);
   if([userInfo[@"platform"] isEqualToString:@"android"]) {
       completionHandler(UIBackgroundFetchResultNoData);
       return YES;
@@ -553,6 +554,7 @@ NSString *const COLOR_CONSUMIDOR = @"0x0288D1";
                         }
                       }];
     } else {
+      NSLog(@"561 [_channel invokeMethod:@\"Messaging#onMessage\"");
       [_channel invokeMethod:@"Messaging#onMessage" arguments:notificationDict];
       completionHandler(UIBackgroundFetchResultNoData);
     }
@@ -1435,6 +1437,7 @@ NSString *const COLOR_CONSUMIDOR = @"0x0288D1";
             @"id": [proveedorData objectForKey:@"id"],
             @"nombreProveedor": [proveedorData objectForKey:@"nombreProveedor"],
             @"apellidoProveedor": [proveedorData objectForKey:@"apellidoProveedor"],
+            @"abierto": [proveedorData objectForKey:@"abierto"],
             @"celularProveedor": [proveedorData objectForKey:@"celular"],
             @"actividadEconomica": [proveedorData objectForKey:@"actividadEconomica"],
             @"ubicacion": [proveedorData objectForKey:@"ubicacion"],
@@ -1452,6 +1455,7 @@ NSString *const COLOR_CONSUMIDOR = @"0x0288D1";
         @"cliente": [[pedido objectForKey:@"tipoUser"] isEqualToString:@"personal"] ? @{
             @"id": [clienteData objectForKey:@"id"],
             @"nombre": [clienteData objectForKey:@"nombre"],
+            @"estado": [clienteData objectForKey:@"estado"],
             @"apellido": [clienteData objectForKey:@"apellido"],
             @"celular": [clienteData objectForKey:@"celular"],
             @"api_logo": [clienteData objectForKey:@"api_logo"],
@@ -1462,6 +1466,7 @@ NSString *const COLOR_CONSUMIDOR = @"0x0288D1";
             @"id": [clienteProveedorData objectForKey:@"id"],
             @"nombreProveedor": [clienteProveedorData objectForKey:@"nombreProveedor"],
             @"apellidoProveedor": [clienteProveedorData objectForKey:@"apellidoProveedor"],
+            @"abierto": [clienteProveedorData objectForKey:@"abierto"],
             @"celularProveedor": [clienteProveedorData objectForKey:@"celularProveedor"],
             @"ubicacion": [clienteProveedorData objectForKey:@"ubicacion"],
             @"actividadEconomica": [clienteProveedorData objectForKey:@"actividadEconomica"],

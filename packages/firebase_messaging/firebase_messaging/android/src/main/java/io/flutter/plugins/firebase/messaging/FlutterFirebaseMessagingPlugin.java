@@ -199,7 +199,7 @@ public class FlutterFirebaseMessagingPlugin extends BroadcastReceiver
 
           notificationManager.cancelAll();
 
-          onDetachedFromActivity(); // this.mainActivity = null;
+          // onDetachedFromActivity(); // this.mainActivity = null;
           return null;
         });
   }
